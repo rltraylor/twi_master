@@ -64,9 +64,10 @@ ISR(TWI_vect){
 //Call this function to test if the TWI unit is busy transferring data. The TWI
 //code uses the the interrupt enable bit (TWIE) to indicate if the TWI unit
 //is busy or not.  This protocol must be maintained for correct operation.
+//Function returns logic one if TWI is busy.
 //*****************************************************************************
 uint8_t twi_busy(void){
-  return (bit_is_set(TWCR,TWIE)); //if interrupt is enabled, twi is busy
+  return (bit_is_set(TWCR,TWIE)); //if interrupt enabled, twi is busy, return 1
 }
 //*****************************************************************************
 
@@ -98,9 +99,9 @@ void twi_start_rd(uint8_t twi_addr, uint8_t *twi_data, uint8_t byte_cnt){
 //******************************************************************************
 //                            init_twi                               
 //
-//Uses PD1 as SDA and PD0 as SCL
-//10K pullups are present on the board
-//For the alarm clock an additional 4.7K resistor is also there for pullup
+//PD1 is SDA 
+//PD0 as SCL
+//10K pullups are present on the mega128 board port D
 //******************************************************************************
 
 void init_twi(){
